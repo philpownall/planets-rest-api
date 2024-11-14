@@ -1,0 +1,15 @@
+name: "Planet Positions Addon"
+description: "Add-on that encapsulates the planet positions node server"
+version: "0.2"
+slug: "planets"
+url: "https://github.com/philpownall/planets-rest-api"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: services
+ports:
+  3000/tcp: 3000
