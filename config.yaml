@@ -1,6 +1,6 @@
-name: "Planet Positions Addon"
-description: "Add-on that encapsulates the planet positions node server"
-version: "0.2"
+name: "Planets Positions Addon"
+description: "Add-on that encapsulates the planets positions node server"
+version: "0.7"
 slug: "planets"
 url: "https://github.com/philpownall/planets-rest-api"
 init: false
@@ -13,3 +13,9 @@ arch:
 startup: services
 ports:
   3000/tcp: 3000
+options:
+  latitude: 44.2307
+  longitude: -76.4813
+schema:
+  latitude: float
+  longitude: float
