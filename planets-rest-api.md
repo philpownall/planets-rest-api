@@ -29,6 +29,12 @@ The project consists of the following elements:
 2. A Node.js app (app.js) to provide a REST API server for the planetary positions.
 
 
+### Optional Ingredients
+
+3. A Dockerfile to enable the server to be run using Docker
+
+4. A config.yaml to enable the server to be run as a Local Add-On in Home Assistant (see https://developers.home-assistant.io/docs/add-ons/tutorial/ )
+
 Running the server
 ==================
 
