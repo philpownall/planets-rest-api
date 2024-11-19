@@ -134,6 +134,7 @@ curl http://localhost:3000/planets
     "Set": "05:47:52"
   }
 }
+```
 
 Adding sensors in Home Assistant
 ================================
@@ -251,6 +252,7 @@ rest:
             - "Rise"
             - "Set"
 ```
+
 
 Adding a Lovelace Dashboard
 ===========================
