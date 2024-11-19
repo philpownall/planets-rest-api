@@ -134,3 +134,519 @@ curl http://localhost:3000/planets
     "Set": "05:47:52"
   }
 }
+
+Adding sensors in Home Assistant
+================================
+
+If the planets server is run as a Local Add-on in Home Assistant, REST sensors can be defined in your configuration.yaml as shown below.
+Once the Add-on is loaded, select the Add-On configuration tab to specify your longitude and latitude.
+
+```
+# rest command to send web requests
+rest:
+  - resource: http://homeassistant.local:3000/planets # a VSOP87 planet positions server 
+    method: GET
+    headers:
+      User-Agent: Home Assistant
+      Accept: application/json
+    scan_interval: 60
+    sensor:
+      - name: "Planets Sun"
+        unique_id: planets101
+        value_template: "{{ value_json['Sun']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Sun"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+      - name: "Planets Moon"
+        unique_id: planets102
+        value_template: "{{ value_json['Moon']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Moon"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+      - name: "Planets Mercury"
+        unique_id: planets103
+        value_template: "{{ value_json['Mercury']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Mercury"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+      - name: "Planets Venus"
+        unique_id: planets104
+        value_template: "{{ value_json['Venus']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Venus"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+      - name: "Planets Mars"
+        unique_id: planets105
+        value_template: "{{ value_json['Mars']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Mars"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+      - name: "Planets Saturn"
+        unique_id: planets106
+        value_template: "{{ value_json['Saturn']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Saturn"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+      - name: "Planets Jupiter"
+        unique_id: planets107
+        value_template: "{{ value_json['Jupiter']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Jupiter"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+      - name: "Planets Uranus"
+        unique_id: planets108
+        value_template: "{{ value_json['Uranus']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Uranus"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+      - name: "Planets Neptune"
+        unique_id: planets109
+        value_template: "{{ value_json['Neptune']['Alt']|float(0) > 0.0 }}"
+        json_attributes_path: "$.Neptune"
+        json_attributes:
+            - "RA"
+            - "Dec"
+            - "Alt"
+            - "Az"
+            - "Rise"
+            - "Set"
+```
+
+Adding a Lovelace Dashboard
+===========================
+
+Adding a Lovelace Dashboard for the planets sensors - using custom:mini-graph-card, custom:compass-card, and card-mod.
+
+[Planets Dashboard](planets.png)
+
+The yaml code for the dashboard is as follows.  Note that an additonal helper called input_number.zero (value 0) is used to show the horizon on the mini-graph-card.
+
+
+```
+views:
+  - type: sections
+    path: ''
+    max_columns: 3
+    sections:
+      - type: grid
+        cards:
+          - type: custom:mini-graph-card
+            height: 275
+            name: Altitude
+            icon: mdi:moon-waxing-crescent
+            line_width: 4
+            lower_bound: -90
+            upper_bound: 90
+            hours_to_show: 24
+            points_per_hour: 1
+            show:
+              state: false
+              legend: true
+              labels: true
+            entities:
+              - entity: sensor.planets_sun
+                attribute: Alt
+                color: yellow
+              - entity: sensor.planets_moon
+                attribute: Alt
+              - entity: sensor.planets_mercury
+                attribute: Alt
+                color: pink
+              - entity: sensor.planets_venus
+                attribute: Alt
+              - entity: sensor.planets_mars
+                attribute: Alt
+                color: red
+              - entity: sensor.planets_jupiter
+                attribute: Alt
+              - entity: sensor.planets_saturn
+                attribute: Alt
+              - entity: input_number.zero
+                color: white
+          - type: custom:compass-card
+            tap_action:
+              entity: sensor.planets_mars
+            header:
+              title:
+                value: Mars
+              icon:
+                color: red
+                dynamic_style:
+                  sensor: sensor.planets_mars
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            indicator_sensors:
+              - sensor: sensor.planets_mars
+                attribute: Az
+                indicator:
+                  type: circle
+                  color: red
+            compass:
+              north:
+                show: true
+              east:
+                show: true
+              west:
+                show: true
+              south:
+                show: true
+              circle:
+                show: true
+                color: blue
+                dynamic_style:
+                  sensor: sensor.planets_mars
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            value_sensors:
+              - sensor: sensor.planets_mars
+                attribute: Alt
+                units: °
+          - type: custom:compass-card
+            tap_action:
+              entity: sensor.planets_moon
+            header:
+              title:
+                value: Moon
+              icon:
+                color: red
+                dynamic_style:
+                  sensor: sensor.planets_moon
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            indicator_sensors:
+              - sensor: sensor.planets_moon
+                attribute: Az
+                indicator:
+                  type: circle
+                  color: blue
+            compass:
+              north:
+                show: true
+              east:
+                show: true
+              west:
+                show: true
+              south:
+                show: true
+              circle:
+                show: true
+                color: blue
+                dynamic_style:
+                  sensor: sensor.planets_moon
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            value_sensors:
+              - sensor: sensor.planets_moon
+                attribute: Alt
+                units: °
+          - type: entities
+            title: Moon is up
+            icon: mdi:moon-waxing-crescent
+            entities:
+              - type: attribute
+                entity: sensor.planets_moon
+                attribute: Rise
+                name: Rise Time
+              - type: attribute
+                entity: sensor.planets_moon
+                attribute: Set
+                name: Set Time
+            visibility:
+              - condition: state
+                entity: sensor.planets_moon
+                state: 'True'
+            card_mod:
+              style: |
+                #states > * {
+                  margin: -1px 0px !important;
+                }
+                ha-card {
+                  transform: scale(0.9);
+                  margin: 0;
+                }
+          - type: custom:compass-card
+            tap_action:
+              entity: sensor.planets_venus
+            header:
+              title:
+                value: Venus
+              icon:
+                color: purple
+                dynamic_style:
+                  sensor: sensor.planets_venus
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            indicator_sensors:
+              - sensor: sensor.planets_venus
+                attribute: Az
+                indicator:
+                  type: circle
+                  color: purple
+            compass:
+              north:
+                show: true
+              east:
+                show: true
+              west:
+                show: true
+              south:
+                show: true
+              circle:
+                show: true
+                color: blue
+                dynamic_style:
+                  sensor: sensor.planets_venus
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            value_sensors:
+              - sensor: sensor.planets_venus
+                attribute: Alt
+                units: °
+      - type: grid
+        cards:
+          - type: custom:compass-card
+            tap_action:
+              entity: sensor.planets_sun
+            header:
+              title:
+                value: Sun
+              icon:
+                color: orange
+                dynamic_style:
+                  sensor: sensor.planets_sun
+                  attribute: azimuth
+                  bands:
+                    - from_value: 0
+                      color: yellow
+            indicator_sensors:
+              - sensor: sensor.planets_sun
+                attribute: Az
+                indicator:
+                  type: circle
+                  color: orange
+            compass:
+              east:
+                show: true
+              west:
+                show: true
+              south:
+                show: true
+              circle:
+                show: true
+                color: blue
+                dynamic_style:
+                  sensor: sensor.planets_sun
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: yellow
+              north:
+                show: true
+            value_sensors:
+              - sensor: sensor.planets_sun
+                attribute: Alt
+                units: °
+          - type: entities
+            title: Sun is up
+            icon: mdi:sun-compass
+            entities:
+              - type: attribute
+                entity: sensor.planets_sun
+                attribute: Rise
+                name: Rise Time
+              - type: attribute
+                entity: sensor.planets_sun
+                attribute: Set
+                name: Set Time
+            visibility:
+              - condition: state
+                entity: sensor.planets_sun
+                state: 'True'
+            card_mod:
+              style: |
+                #states > * {
+                  margin: -1px 0px !important;
+                }
+                ha-card {
+                  transform: scale(0.9);
+                  margin: 0;
+                }
+          - type: custom:compass-card
+            tap_action:
+              entity: sensor.planets_mercury
+            header:
+              title:
+                value: Mercury
+              icon:
+                color: pink
+                dynamic_style:
+                  sensor: sensor.planets_mercury
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            indicator_sensors:
+              - sensor: sensor.planets_mercury
+                attribute: Az
+                indicator:
+                  type: circle
+                  color: pink
+            compass:
+              north:
+                show: true
+              east:
+                show: true
+              west:
+                show: true
+              south:
+                show: true
+              circle:
+                show: true
+                color: blue
+                dynamic_style:
+                  sensor: sensor.planets_mercury
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            value_sensors:
+              - sensor: sensor.planets_mercury
+                attribute: Alt
+                units: °
+          - type: custom:compass-card
+            tap_action:
+              entity: sensor.planets_jupiter
+            header:
+              title:
+                value: Jupiter
+              icon:
+                color: red
+                dynamic_style:
+                  sensor: sensor.planets_jupiter
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            indicator_sensors:
+              - sensor: sensor.planets_jupiter
+                attribute: Az
+                indicator:
+                  type: circle
+                  color: Green
+            compass:
+              north:
+                show: true
+              east:
+                show: true
+              west:
+                show: true
+              south:
+                show: true
+              circle:
+                show: true
+                color: blue
+                dynamic_style:
+                  sensor: sensor.planets_jupiter
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            value_sensors:
+              - sensor: sensor.planets_jupiter
+                attribute: Alt
+                units: °
+          - type: custom:compass-card
+            tap_action:
+              entity: sensor.planets_saturn
+            header:
+              title:
+                value: Saturn
+              icon:
+                color: red
+                dynamic_style:
+                  sensor: sensor.planets_saturn
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            indicator_sensors:
+              - sensor: sensor.planets_saturn
+                attribute: Az
+                indicator:
+                  type: circle
+                  color: teal
+            compass:
+              north:
+                show: true
+              east:
+                show: true
+              west:
+                show: true
+              south:
+                show: true
+              circle:
+                show: true
+                color: blue
+                dynamic_style:
+                  sensor: sensor.planets_saturn
+                  attribute: Alt
+                  bands:
+                    - from_value: 0
+                      color: white
+            value_sensors:
+              - sensor: sensor.planets_saturn
+                attribute: Alt
+                units: °
+```
