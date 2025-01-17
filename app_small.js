@@ -1,6 +1,6 @@
 
 var express = require('express');
-const Alt_az_full = require('./alt_az_full.js');
+const Alt_az_small = require('./alt_az_small.js');
 
 var app = express ();
 app.use(express.json());
@@ -30,7 +30,7 @@ app.get("/status", (request, response) => {
 
 app.get("/planets", (request, response) => {
    const datenow = Date.now();
-   const planets = Alt_az_full.GetPlanets(datenow, mylat, mylong);
+   const planets = Alt_az_small.GetPlanets(datenow, mylat, mylong);
    
    response.send(planets);
 });

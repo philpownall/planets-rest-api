@@ -1,5 +1,8 @@
 # Home Assistant Add-on: Planet Positions Add-On Changelog
 
+## 0.8
+- Upgraded to full vsop model
+
 ## 0.7
 - Added date to logfile at startup
 
