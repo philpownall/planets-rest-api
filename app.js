@@ -8,7 +8,7 @@ app.use(express.json());
 const options = require('./data/options.json');
 //console.log(options);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3100;
 
 const mylat = options.latitude || 44.2307;
 const mylong = options.longitude || -76.4813;

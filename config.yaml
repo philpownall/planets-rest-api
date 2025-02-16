@@ -12,7 +12,7 @@ arch:
   - i386
 startup: services
 ports:
-  3000/tcp: 3000
+  3100/tcp: 3100
 options:
   latitude: 44.2307
   longitude: -76.4813

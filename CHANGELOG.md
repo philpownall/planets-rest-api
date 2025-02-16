@@ -1,5 +1,8 @@
 # Home Assistant Add-on: Planet Positions Add-On Changelog
 
+## 0.9
+- Changed default port to 3100
+
 ## 0.8
 - Upgraded to full vsop model
 

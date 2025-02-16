@@ -6,7 +6,7 @@ by Phil Pownall
 Description
 -----------
 
-This server calculates the positions (Right Ascension, Declination, Altitude, and Azimuth) and transit times (Transit, Rise, and Set) of the Sun, Moon, and planets from the observer's longitude and latitude at the current time.  The server provides a REST API on port 3000 that returns the data in a json.
+This server calculates the positions (Right Ascension, Declination, Altitude, and Azimuth) and transit times (Transit, Rise, and Set) of the Sun, Moon, and planets from the observer's longitude and latitude at the current time.  The server provides a REST API on port 3000 that returns the positional data in a json.
 
 Acknowledgments
 ---------------
@@ -15,16 +15,17 @@ Many thanks to the contributors to the open-source, publicly accessible VSOP87 s
 VSOP87 was developed and is maintained (updated with the latest data) by the scientists at the Bureau des Longitudes in Paris.
 An example in JavaScript showing computations is available from Greg Miller's Celestial Programming website at http://www.celestialprogramming.com/vsop87-multilang/
 It provides the positions of 9 planetary bodies accurate to 7 decimal places...
-The model is large - even the *small* model which this example uses is 10,000 lines of code.
+The model is large - even the *small* model is 10,000 lines of code.  The *full* model is 43,000 lines.
+However, the computational load is reasonable - less than 1% on a typical server pc.
 
 ### Ingredients
 
 The project consists of the following elements:
 
-1. The VSOP87A_small planetary computation model in 5 Javascript files (alt_az_small.js, and 4 lightly modified Javascript files from Greg Miller's celestial programming website - 
-    - CelestialProgrammingReduce_small.js, 
-    - vsop87a_small.js, and
-    - vsop87a_small_velocities.js
+1. The VSOP87A_full planetary computation model in 5 Javascript files (alt_az_full.js, and 4 lightly modified Javascript files from Greg Miller's celestial programming website - 
+    - CelestialProgrammingReduce_full.js, 
+    - vsop87a_full.js, and
+    - vsop87a_full_velocities.js
     - riseset.js
 2. A Node.js app (app.js) to provide a REST API server for the planetary positions.
 
@@ -48,7 +49,7 @@ node app.js
 The server can be checked using curl:
 
 ```
-curl http://localhost:3000/planets
+curl http://homeassistant.local:3100/planets
 
 {
   "Planets": "2024-10-07T13:40:52.795Z",
@@ -145,7 +146,7 @@ Once the Add-on is loaded, select the Add-On configuration tab to specify your l
 ```
 # rest command to send web requests
 rest:
-  - resource: http://homeassistant.local:3000/planets # a VSOP87 planet positions server 
+  - resource: http://homeassistant.local:3100/planets # a VSOP87 planet positions server 
     method: GET
     headers:
       User-Agent: Home Assistant
