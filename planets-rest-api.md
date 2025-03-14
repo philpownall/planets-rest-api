@@ -6,7 +6,7 @@ by Phil Pownall
 Description
 -----------
 
-This server calculates the positions (Right Ascension, Declination, Altitude, and Azimuth) and transit times (Transit, Rise, and Set) of the Sun, Moon, and planets from the observer's longitude and latitude at the current time.  The server provides a REST API on port 3000 that returns the positional data in a json.
+This server calculates the positions (Right Ascension, Declination, Altitude, and Azimuth) and transit times (Transit, Rise, and Set) of the Sun, Moon, and planets from the observer's longitude and latitude at the current time.  The server provides a REST API on port 3100 that returns the positional data in a json.
 
 Acknowledgments
 ---------------
