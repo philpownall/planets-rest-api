@@ -3,6 +3,6 @@ This server calculates the positions (Right Ascension, Declination, Altitude, an
 
 The server can be run standalone as a Node.js app, as a docker server, or as a local Add-On in Home Assistant.
 
-[Planets REST API Dashboard](./PlanetsScreenShot.png)
+[Planets REST API Dashboard](https://github.com/philpownall/planets-rest-api/blob/29eda208f0e04a8867f01a9a689a594c92586bb9/PlanetsScreenShot.png)
 
 [Planets REST API README](./planets-rest-api.md)
