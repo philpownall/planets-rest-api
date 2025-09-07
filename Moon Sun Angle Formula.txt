@@ -1,0 +1,30 @@
+Moon Phase Angle Formula
+
+phase_angle = acos((sin(Dm)∗sin(Ds))+(cos(Dm)∗cos(Ds)∗cos(RAm−RAs)))
+
+Variables:
+
+    phase_angle is the Moon Sun angle
+    Dm is the declination of the Moon
+    Ds is the declination of the Sun
+    RAm is the right ascension of the Moon
+    RAs is the right ascension of the Sun
+
+    phase_angle = acos( (sin(Ds) * sin(Dm) + cos(Ds) * cos(Dm) * cos(RAs - RAm)) )
+    illumination_fraction = (1 - cos(phase_angle)) / 2
+    moon_phase = 180 * illumination_fraction
+
+In Jinja:
+
+ Moon Phase Calculation:
+{% set Ds = float(state_attr('sensor.planet_sun','Dec')) * pi / 180 -%} 
+{%- set RAs = float(state_attr('sensor.planet_sun','RA')) * pi / 180 -%}
+{%- set Dm = float(state_attr('sensor.planet_moon','Dec')) * pi / 180 -%}
+{%- set RAm = float(state_attr('sensor.planet_moon','RA')) * pi / 180 -%}
+Ds: {{ Ds }}  RAs: {{ RAs }}  Dm: {{ Dm }}  RAm: {{ RAm }}
+{% set Sines = sin(Dm) * sin(Ds) %} Sines {{ Sines }}
+{% set Cosines =  cos(Dm) * cos(Ds) * cos((RAm - RAs)) %} Cosines {{ Cosines }}
+{% set phase_angle = acos(Sines + Cosines) %} phase_angle {{ phase_angle * 180 / pi }}°
+{% set illumination_fraction = (1 - cos(phase_angle)) / 2 %} illumination_fraction {{ illumination_fraction }}
+{% set moon_phase = 180 * illumination_fraction %} moon_phase {{ moon_phase }}°
+
