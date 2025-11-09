@@ -1,5 +1,8 @@
 # Home Assistant Add-on: Planet Positions Add-On Changelog
 
+## 0.9.1
+- Populated the options.json file into the data directory
+
 ## 0.9
 - Changed default port to 3100
 

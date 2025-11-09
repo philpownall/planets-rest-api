@@ -1,6 +1,6 @@
 name: "Planets Positions Addon"
 description: "Add-on that encapsulates the planets positions node server"
-version: "0.8"
+version: "0.9.1"
 slug: "planets"
 url: "https://github.com/philpownall/planets-rest-api"
 init: false
