@@ -14,7 +14,7 @@ const mylat = options.latitude || 44.2307;
 const mylong = options.longitude || -76.4813;
 
 app.listen(PORT, () => {
-  console.log("Planet Positions Server version 0.8 started at: ", Date());
+  console.log("Planet Positions Server version 0.9.1 started at: ", Date());
   console.log("Planet Positions Server Listening on PORT:", PORT);
   console.log("compute Planet positions for longitude:", mylong);
   console.log("compute Planet positions for latitude:",mylat);
