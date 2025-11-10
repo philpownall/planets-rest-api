@@ -5,4 +5,6 @@ The server can be run standalone as a Node.js app, as a docker server, or as a l
 
 ![PlanetsScreenShot](https://github.com/user-attachments/assets/33f3bf6f-6fe9-42b9-91f3-28d2c1d17766)
 
+<img width="440" height="420" alt="SolarSystemCompassCard" src="https://github.com/user-attachments/assets/112aa44c-6ba5-4247-a61d-03ececab1366" />
+
 [Planets REST API README](./planets-rest-api.md)
